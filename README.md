@@ -1,6 +1,6 @@
-Case Study
+Project
 -
-Build an app with a clean code structure and MVVM design pattern consuming an api of posts using the Ktor Client.
+Build an app with a clean code structure using the MVVM design pattern that consumes an API of posts with the Ktor Client.
 
 Tips
 -
