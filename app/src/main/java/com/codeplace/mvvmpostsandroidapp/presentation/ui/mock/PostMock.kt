@@ -1,4 +1,4 @@
-package com.codeplace.mvvmpostsandroidapp.ui.mock
+package com.codeplace.mvvmpostsandroidapp.presentation.ui.mock
 
 data class PostMock(
     val title:String? = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

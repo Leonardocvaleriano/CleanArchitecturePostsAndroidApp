@@ -1,4 +1,4 @@
-package com.codeplace.mvvmpostsandroidapp.ui.theme
+package com.codeplace.mvvmpostsandroidapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

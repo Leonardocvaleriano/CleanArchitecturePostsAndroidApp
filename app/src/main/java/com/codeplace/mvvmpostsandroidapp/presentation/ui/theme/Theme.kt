@@ -1,4 +1,4 @@
-package com.codeplace.mvvmpostsandroidapp.ui.theme
+package com.codeplace.mvvmpostsandroidapp.presentation.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
