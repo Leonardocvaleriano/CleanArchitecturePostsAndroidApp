@@ -21,8 +21,11 @@ class PostsViewModel @Inject constructor(
 ):ViewModel() {
 
     var posts by mutableStateOf(listOf<Post>())
+        private set
     var isloading by mutableStateOf(false)
+        private set
     var errorMessage by mutableStateOf<NetworkError?>(null)
+        private set
 
 
     fun loadPosts() = viewModelScope.launch {
