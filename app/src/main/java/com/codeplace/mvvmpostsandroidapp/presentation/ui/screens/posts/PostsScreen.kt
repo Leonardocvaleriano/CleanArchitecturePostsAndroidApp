@@ -1,4 +1,4 @@
-package com.codeplace.mvvmpostsandroidapp.presentation.ui.screens
+package com.codeplace.mvvmpostsandroidapp.presentation.ui.screens.posts
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,13 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults.topAppBarColors
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.codeplace.mvvmpostsandroidapp.domain.models.Post
-import com.codeplace.mvvmpostsandroidapp.presentation.ui.mock.PostMock
 import com.codeplace.mvvmpostsandroidapp.presentation.ui.theme.MVVMPostsAndroidAppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,15 +32,13 @@ import com.codeplace.mvvmpostsandroidapp.presentation.ui.theme.MVVMPostsAndroidA
                         titleContentColor = MaterialTheme.colorScheme.primary,
                     ),
                     title = {
-                        Text("Post")
+                        Text("Posts")
                     }
                 )
             }
         ){ innerPadding ->
             Column(modifier =
             Modifier.padding(innerPadding)) {
-
-
                 LazyColumn {
                     items(post) {
                         Column(
@@ -51,9 +46,9 @@ import com.codeplace.mvvmpostsandroidapp.presentation.ui.theme.MVVMPostsAndroidA
                             .fillMaxSize()
                             .padding(24.dp)
                         ) {
-                            Text(it.title!!)
+                            Text(it.title)
                             Spacer(modifier = Modifier.padding(top = 14.dp))
-                            Text(it.body!!)
+                            Text(it.body)
                         }
 
                     }

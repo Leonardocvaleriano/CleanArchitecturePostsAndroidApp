@@ -1,13 +1,14 @@
-package com.codeplace.mvvmpostsandroidapp.presentation.ui.screens
+package com.codeplace.mvvmpostsandroidapp.presentation.ui.screens.posts
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codeplace.mvvmpostsandroidapp.data.datasource.PostRepositoryImpl
 import com.codeplace.mvvmpostsandroidapp.data.network.utils.NetworkError
 import com.codeplace.mvvmpostsandroidapp.data.network.utils.Result
+import com.codeplace.mvvmpostsandroidapp.data.network.utils.onError
+import com.codeplace.mvvmpostsandroidapp.data.network.utils.onSuccess
 import com.codeplace.mvvmpostsandroidapp.domain.models.Post
 import com.codeplace.mvvmpostsandroidapp.domain.repositories.PostsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,17 +27,15 @@ class PostsViewModel @Inject constructor(
 
     fun loadPosts() = viewModelScope.launch {
         isloading = true
-        when (val result = postsRepository.getPosts()) {
-            is Result.Success -> {
-                posts = result.data
-            }
-
-            is Result.Error -> {
-                posts = emptyList()
-                errorMessage = result.error
-            }
+        postsRepository.getPosts().onSuccess {
+            isloading = false
+            posts = it
+            isloading = false
+            errorMessage = null
         }
-        isloading = false
+            .onError {
+                isloading = false
+                errorMessage = it
+            }
     }
-
 }
