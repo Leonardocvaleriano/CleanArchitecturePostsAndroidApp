@@ -15,7 +15,6 @@ import com.codeplace.mvvmpostsandroidapp.presentation.ui.screens.posts.PostsView
 @Composable
 fun App(){
     val viewModel: PostsViewModel = viewModel()
-
     //Every time that compose make its recompose process, this load post will be called.
     LaunchedEffect(true) {
         viewModel.loadPosts()

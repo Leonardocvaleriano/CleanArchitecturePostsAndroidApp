@@ -12,7 +12,9 @@ import com.codeplace.mvvmpostsandroidapp.data.network.utils.onSuccess
 import com.codeplace.mvvmpostsandroidapp.domain.models.Post
 import com.codeplace.mvvmpostsandroidapp.domain.repositories.PostsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,15 +32,15 @@ class PostsViewModel @Inject constructor(
 
     fun loadPosts() = viewModelScope.launch {
         isloading = true
-        postsRepository.getPosts().onSuccess {
-            isloading = false
-            posts = it
-            isloading = false
-            errorMessage = null
-        }
-            .onError {
+            postsRepository.getPosts().onSuccess {
                 isloading = false
-                errorMessage = it
+                posts = it
+                isloading = false
+                errorMessage = null
             }
+                .onError {
+                    isloading = false
+                    errorMessage = it
+                }
     }
 }
