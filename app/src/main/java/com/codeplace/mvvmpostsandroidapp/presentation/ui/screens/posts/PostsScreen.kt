@@ -23,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.codeplace.mvvmpostsandroidapp.domain.models.Post
+import com.codeplace.mvvmpostsandroidapp.presentation.ui.components.PostCard
+import com.codeplace.mvvmpostsandroidapp.presentation.ui.theme.Spacing
 import com.example.compose.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,31 +52,13 @@ import com.example.compose.AppTheme
             Column(modifier =
             Modifier
                 .padding(innerPadding)
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.surface)
 
             ) {
-                LazyColumn{
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(space = Spacing.small),
+                ){
                     items(post) {
-                        Column(
-                            Modifier
-                            .fillMaxSize()
-                            .padding(24.dp)
-                        ) {
-                            Text( text =
-                                it.title,
-                                style = MaterialTheme.typography.titleLarge,
-                                color = MaterialTheme.colorScheme.onSurface
-
-                            )
-                            Spacer(modifier = Modifier.padding(top = 4.dp))
-                            Text(
-                                text = it.body,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurface
-                                )
-                        }
-
+                        PostCard(post = it)
                     }
                 }
             }
@@ -86,6 +70,20 @@ import com.example.compose.AppTheme
     @Composable
     fun PostsPreview() {
         AppTheme {
-            //PostsScreen()
+            PostsScreen(post = listOf(
+                Post(
+                id = 1,
+                title = "Title",
+                body = "Body",
+                userId = 1
+            ),
+                Post(
+                    id = 1,
+                    title = "Title",
+                    body = "Body",
+                    userId = 1
+                )
+
+                ))
         }
     }
