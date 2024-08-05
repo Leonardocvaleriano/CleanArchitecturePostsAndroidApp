@@ -1,0 +1,3 @@
+package com.codeplace.cleanarchitecturepostsandroidapp.data.network.utils
+
+interface Error
