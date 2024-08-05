@@ -49,7 +49,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideViewModel(httpClient: HttpClient):PostsRepository{
-        return PostRepositoryImpl(httpClient)
+    fun providePostsRepository(api: HttpClient):PostsRepository{
+        return PostRepositoryImpl(api)
     }
 }

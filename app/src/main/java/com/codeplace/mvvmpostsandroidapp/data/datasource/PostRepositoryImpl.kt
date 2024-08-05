@@ -4,7 +4,7 @@ import com.codeplace.mvvmpostsandroidapp.data.network.mappers.toDomain
 import com.codeplace.mvvmpostsandroidapp.data.network.models.PostDto
 import com.codeplace.mvvmpostsandroidapp.data.network.utils.HttpRoutes
 import com.codeplace.mvvmpostsandroidapp.data.network.utils.NetworkError
-import com.codeplace.mvvmpostsandroidapp.data.network.utils.Result
+import com.codeplace.mvvmpostsandroidapp.common.Result
 
 import com.codeplace.mvvmpostsandroidapp.domain.models.Post
 import com.codeplace.mvvmpostsandroidapp.domain.repositories.PostsRepository
@@ -13,19 +13,17 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.SerializationException
 import java.io.IOException
 import java.net.UnknownHostException
-import java.nio.channels.UnresolvedAddressException
 import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
-    private val httpClient: HttpClient,
+    private val api: HttpClient,
 ) : PostsRepository {
     override suspend fun getPosts(): Result<List<Post>, NetworkError> {
         return withContext(Dispatchers.IO) {
             try {
-                val response = httpClient.get(urlString = HttpRoutes.POSTS)
+                val response = api.get(urlString = HttpRoutes.POSTS)
                 when (response.status.value) {
                     in 200..299 -> {
                         val postsResponse = response.body<List<PostDto>>()

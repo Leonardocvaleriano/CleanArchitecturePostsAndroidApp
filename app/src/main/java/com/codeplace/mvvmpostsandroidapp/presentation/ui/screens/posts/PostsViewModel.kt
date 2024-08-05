@@ -6,20 +6,17 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codeplace.mvvmpostsandroidapp.data.network.utils.NetworkError
-import com.codeplace.mvvmpostsandroidapp.data.network.utils.Result
-import com.codeplace.mvvmpostsandroidapp.data.network.utils.onError
-import com.codeplace.mvvmpostsandroidapp.data.network.utils.onSuccess
+import com.codeplace.mvvmpostsandroidapp.common.onError
+import com.codeplace.mvvmpostsandroidapp.common.onSuccess
 import com.codeplace.mvvmpostsandroidapp.domain.models.Post
-import com.codeplace.mvvmpostsandroidapp.domain.repositories.PostsRepository
+import com.codeplace.mvvmpostsandroidapp.domain.use_case.GetPostsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class PostsViewModel @Inject constructor(
-    val postsRepository: PostsRepository
+    val getPostsUseCase: GetPostsUseCase
 ):ViewModel() {
 
     var posts by mutableStateOf(listOf<Post>())
@@ -32,7 +29,7 @@ class PostsViewModel @Inject constructor(
 
     fun loadPosts() = viewModelScope.launch {
         isloading = true
-            postsRepository.getPosts().onSuccess {
+            getPostsUseCase().onSuccess {
                 isloading = false
                 posts = it
                 isloading = false
