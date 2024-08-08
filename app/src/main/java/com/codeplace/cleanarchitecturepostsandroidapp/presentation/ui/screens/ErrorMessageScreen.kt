@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.posts.PostsViewModel
+import com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.home.PostsViewModel
 import kotlinx.coroutines.launch
 
 @Composable

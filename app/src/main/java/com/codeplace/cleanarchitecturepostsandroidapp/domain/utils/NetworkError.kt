@@ -1,4 +1,4 @@
-package com.codeplace.cleanarchitecturepostsandroidapp.data.network.utils
+package com.codeplace.cleanarchitecturepostsandroidapp.domain.utils
 
 enum class NetworkError : Error {
     REQUEST_TIMEOUT,

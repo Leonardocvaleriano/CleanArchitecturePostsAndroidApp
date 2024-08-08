@@ -1,5 +1,6 @@
 package com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,17 +20,21 @@ import com.example.compose.AppTheme
 @Composable
 fun PostCard(
     modifier: Modifier = Modifier,
-    post:Post ,
+    post:Post,
+    onCardClick: (postId:Int) -> Unit
 ) {
     Card(
         modifier = modifier
             .padding()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .clickable {
+                onCardClick(post.id)
+            }
+        ,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerLowest
-        )
-        ,
-        shape = RectangleShape
+        ),
+        shape = RectangleShape,
     ) {
         Column(
             modifier = modifier
@@ -39,11 +44,14 @@ fun PostCard(
         ) {
             Text(
                 text = post.title,
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onSurface
             )
             Text(
                 text = post.body,
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurface
+
             )
         }
     }
@@ -59,8 +67,9 @@ fun PosdCardPreview() {
                 title = "Lorem ipsum dolor sit amet consectetur.",
                 body = "Lorem ipsum dolor sit amet consectetur. Lorem velit blandit facilisis sollicitudin et molestie mattis tortor. Fusce vitae ut feugiat adipiscing aenean pellentesque ac sagittis nulla. Justo sed dictumst adipiscing egestas phasellus. Erat congue dictum id aenean massa viverra aliquam.",
                 id = -1,
-                userId = -1
-            )
+                userId = -1,
+            ),
+            onCardClick = {}
         )
     }
 

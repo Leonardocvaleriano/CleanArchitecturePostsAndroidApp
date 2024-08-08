@@ -1,13 +1,13 @@
-package com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.posts
+package com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.home
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.codeplace.cleanarchitecturepostsandroidapp.data.network.utils.NetworkError
-import com.codeplace.cleanarchitecturepostsandroidapp.common.onError
-import com.codeplace.cleanarchitecturepostsandroidapp.common.onSuccess
+import com.codeplace.cleanarchitecturepostsandroidapp.domain.utils.NetworkError
+import com.codeplace.cleanarchitecturepostsandroidapp.domain.utils.onError
+import com.codeplace.cleanarchitecturepostsandroidapp.domain.utils.onSuccess
 import com.codeplace.cleanarchitecturepostsandroidapp.domain.models.Post
 import com.codeplace.cleanarchitecturepostsandroidapp.domain.use_case.GetPostsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PostsViewModel @Inject constructor(
-    val getPostsUseCase: GetPostsUseCase
+    private val getPostsUseCase: GetPostsUseCase
 ):ViewModel() {
 
     var posts by mutableStateOf(listOf<Post>())
@@ -29,6 +29,7 @@ class PostsViewModel @Inject constructor(
 
     fun loadPosts() = viewModelScope.launch {
         isloading = true
+
             getPostsUseCase().onSuccess {
                 isloading = false
                 posts = it

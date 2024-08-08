@@ -1,34 +1,31 @@
 package com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.ErrorMessageScreen
-import com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.posts.PostsScreen
-import com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.posts.PostsViewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.comments.CommentsScreenRoot
+import com.codeplace.cleanarchitecturepostsandroidapp.presentation.ui.screens.home.HomeScreenRoot
 
 @Composable
-fun App(){
-    val viewModel: PostsViewModel = viewModel()
-    //Every time that compose make its recompose process, this load post will be called.
-    LaunchedEffect(true) {
-        viewModel.loadPosts()
+fun App() {
+
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = HomeRoute) {
+        composable<HomeRoute> {
+            HomeScreenRoot (
+                onCardClick = { id ->
+                    navController.navigate(CommentsRoute(id))
+                }
+            )
+        }
+        composable<CommentsRoute> { backStackEntry ->
+            val commentsRoute: CommentsRoute = backStackEntry.toRoute()
+            CommentsScreenRoot(
+               id = commentsRoute.id
+            )
+        }
     }
 
-    if (viewModel.isloading) {
-        Box(
-            modifier = androidx.compose.ui.Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
-        }
-    } else if (viewModel.errorMessage != null) {
-        ErrorMessageScreen(errorMessage = viewModel.errorMessage!!.name)
-    } else {
-        PostsScreen(post = viewModel.posts)
-    }
 }

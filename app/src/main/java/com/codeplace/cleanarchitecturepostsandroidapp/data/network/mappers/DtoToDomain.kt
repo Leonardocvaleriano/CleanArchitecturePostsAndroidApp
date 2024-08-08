@@ -1,6 +1,8 @@
 package com.codeplace.cleanarchitecturepostsandroidapp.data.network.mappers
 
+import com.codeplace.cleanarchitecturepostsandroidapp.data.network.models.CommentsDto
 import com.codeplace.cleanarchitecturepostsandroidapp.data.network.models.PostDto
+import com.codeplace.cleanarchitecturepostsandroidapp.domain.models.Comments
 import com.codeplace.cleanarchitecturepostsandroidapp.domain.models.Post
 
 
@@ -12,4 +14,16 @@ fun PostDto.toDomain(): Post {
         body = this.body
         )
 }
+
+fun CommentsDto.toDomain(): Comments {
+    return Comments(
+        body = this.body,
+        email = this.email,
+        id = this.id,
+        name = this.name,
+        postId = this.postId
+    )
+}
+
+
 
