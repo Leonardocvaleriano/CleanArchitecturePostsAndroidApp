@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.codeplace.cleanarchitecturepostsandroidapp"
+    namespace = "com.codeplace.postsandroidapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.codeplace.cleanarchitecturepostsandroidapp"
+        applicationId = "com.codeplace.postsandroidapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

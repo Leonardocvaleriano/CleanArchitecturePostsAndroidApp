@@ -1,3 +1,0 @@
-package com.codeplace.cleanarchitecturepostsandroidapp.domain.utils
-
-interface Error

@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Clean Architecture Posts Android App"
+rootProject.name = "Posts Android App"
 include(":app")
  
