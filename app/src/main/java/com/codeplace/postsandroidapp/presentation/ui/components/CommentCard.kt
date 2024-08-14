@@ -13,7 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.codeplace.postsandroidapp.presentation.ui.theme.Spacing
 import com.codeplace.postsandroidapp.presentation.ui.theme.cornerRadius
+import com.example.compose.AppTheme
 
 @Composable
 fun CommentCard(
@@ -30,16 +32,16 @@ fun CommentCard(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
         ),
         shape = RoundedCornerShape(cornerRadius.small)
-
     ) {
         Column(
-            modifier = modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            modifier = modifier
+                .padding(all = Spacing.large),
+            verticalArrangement = Arrangement.spacedBy(Spacing.extraSmall)
         ) {
             Column(
                 modifier = modifier
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(4.dp)
+                verticalArrangement = Arrangement.spacedBy(Spacing.nano)
             ) {
                 Text(
                     text = name,
@@ -49,14 +51,14 @@ fun CommentCard(
                 )
                 Text(
                     text = email,
-                    style = MaterialTheme.typography.bodySmall,
+                    style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Text(
                 text = body,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
 
@@ -66,9 +68,12 @@ fun CommentCard(
 @Preview(showBackground = true)
 @Composable
 fun CommentsCardPreview() {
-    CommentCard(
-        name = "Lorem ipsum dolor sit amet consectetur",
-        email = "ikita@garfield.biz",
-        body = "Lorem ipsum dolor sit amet consectetur. Lorem velit blandit facilisis sollicitudin et molestie mattis tortor. Fusce vitae ut feugiat adipiscing aenean pellentesque ac sagittis nulla. Justo sed dictumst adipiscing egestas phasellus. Erat congue dictum id aenean massa viverra aliquam."
-    )
+    AppTheme {
+        CommentCard(
+            name = "Lorem ipsum dolor sit amet consectetur",
+            email = "ikita@garfield.biz",
+            body = "Lorem ipsum dolor sit amet consectetur. Lorem velit blandit facilisis sollicitudin et molestie mattis tortor. Fusce vitae ut feugiat adipiscing aenean pellentesque ac sagittis nulla. Justo sed dictumst adipiscing egestas phasellus. Erat congue dictum id aenean massa viverra aliquam."
+        )
+    }
+
 }

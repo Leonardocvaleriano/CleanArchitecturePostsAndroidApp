@@ -3,6 +3,9 @@ package com.codeplace.postsandroidapp.presentation.ui.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -10,9 +13,12 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.codeplace.postsandroidapp.R
 import com.codeplace.postsandroidapp.domain.models.Post
 import com.codeplace.postsandroidapp.presentation.ui.theme.Spacing
 import com.example.compose.AppTheme
@@ -20,8 +26,9 @@ import com.example.compose.AppTheme
 @Composable
 fun PostCard(
     modifier: Modifier = Modifier,
-    post:Post,
-    onCardClick: (postId:Int) -> Unit
+    post: Post,
+    onCardClick: (postId: Int) -> Unit,
+    containCommentCount: Int? = 0,
 ) {
     Card(
         modifier = modifier
@@ -29,31 +36,69 @@ fun PostCard(
             .fillMaxWidth()
             .clickable {
                 onCardClick(post.id)
-            }
-        ,
+            },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerLowest
         ),
         shape = RectangleShape,
     ) {
+
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(start = Spacing.medium, end = Spacing.medium, top = Spacing.medium, bottom = Spacing.large),
-            verticalArrangement = Arrangement.spacedBy(Spacing.small)
+                .padding(
+                    start = Spacing.medium,
+                    end = Spacing.medium,
+                    top = Spacing.large,
+                    bottom = Spacing.large
+                ), verticalArrangement = Arrangement.spacedBy(Spacing.medium)
         ) {
-            Text(
-                text = post.title,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onSurface
-            )
-            Text(
-                text = post.body,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface
+            Column(
+                verticalArrangement = Arrangement.spacedBy(Spacing.mini)
+            ) {
+                Text(
+                    text = post.title.replaceFirstChar {
+                        it.uppercase()
+                    },
+                    style = MaterialTheme.typography.titleMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(
+                    text = post.body.replaceFirstChar {
+                        it.uppercase()
+                    },
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+            }
 
-            )
+            if (containCommentCount!! > 0) {
+                Column(
+                    modifier = modifier
+                        .fillMaxWidth(),
+                    horizontalAlignment = Alignment.End
+                )
+                {
+                    Row(modifier = modifier.padding(end = Spacing.small)) {
+                        Text(
+                            text = containCommentCount.toString(),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(Modifier.padding(end = Spacing.nano))
+                        Text(
+                            text = stringResource(id = R.string.comments_body),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+
+                    }
+
+                }
+            }
         }
+
+
     }
 }
 
@@ -69,7 +114,8 @@ fun PosdCardPreview() {
                 id = -1,
                 userId = -1,
             ),
-            onCardClick = {}
+            onCardClick = {},
+            containCommentCount = 1
         )
     }
 

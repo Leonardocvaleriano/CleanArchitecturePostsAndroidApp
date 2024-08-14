@@ -3,7 +3,7 @@ package com.codeplace.postsandroidapp.domain.use_case
 import com.codeplace.postsandroidapp.domain.repositories.PostsRepository
 import javax.inject.Inject
 
-class GetPostCommentUseCase @Inject constructor(
+class GetCommentByIdUseCase @Inject constructor(
     val postRepository: PostsRepository
 ) {
     suspend operator fun invoke(id: Int) = postRepository.getComments(id)

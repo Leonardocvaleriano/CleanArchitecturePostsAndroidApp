@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.codeplace.postsandroidapp.domain.models.Post
 import com.codeplace.postsandroidapp.presentation.ui.components.PostCard
 import com.codeplace.postsandroidapp.presentation.ui.screens.ErrorMessageScreen
@@ -50,7 +51,8 @@ fun HomeScreenRoot(
     } else {
         PostsScreen(
             posts = viewModel.posts,
-            onCardClick = onCardClick
+            onCardClick = onCardClick,
+            commentsCount = viewModel.commentsCount
         )
     }
 }
@@ -60,6 +62,7 @@ fun HomeScreenRoot(
 fun PostsScreen(
     posts: List<Post>,
     onCardClick: (Int) -> Unit,
+    commentsCount:Int? = 0,
 ) {
     Scaffold(
         topBar = {
@@ -90,7 +93,8 @@ fun PostsScreen(
                 items(posts) {
                     PostCard(
                         post = it,
-                        onCardClick = onCardClick
+                        onCardClick = onCardClick,
+                        containCommentCount = commentsCount
                     )
                 }
             }

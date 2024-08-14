@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.codeplace.postsandroidapp.domain.models.Comments
 import com.codeplace.postsandroidapp.domain.models.Post
-import com.codeplace.postsandroidapp.domain.use_case.GetPostCommentUseCase
+import com.codeplace.postsandroidapp.domain.use_case.GetCommentByIdUseCase
 import com.codeplace.postsandroidapp.domain.use_case.GetPostByIdUseCase
 import com.codeplace.postsandroidapp.domain.utils.NetworkError
 import com.codeplace.postsandroidapp.domain.utils.onError
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CommentsViewModel @Inject constructor(
-    val getPostCommentsUseCase: GetPostCommentUseCase,
+    val getPostCommentsUseCase: GetCommentByIdUseCase,
     val getPostByIdUseCase: GetPostByIdUseCase
 ) : ViewModel() {
 
