@@ -1,4 +1,4 @@
-package com.codeplace.postsandroidapp.presentation.ui.screens.favorites
+package com.codeplace.postsandroidapp.presentation.ui.screens.search
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,20 +8,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
+
 @Composable
-fun FavoritesScreenRoot(){
-    FavoritesScreen()
+fun SearchScreenRoot(){
+    SearchScreen()
 }
 
 @Composable
-fun FavoritesScreen(modifier: Modifier = Modifier) {
+fun SearchScreen(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Favorites Screen")
+        Text("Search Screen")
     }
 
 }

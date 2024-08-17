@@ -12,9 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.codeplace.postsandroidapp.presentation.ui.theme.Spacing
-import com.codeplace.postsandroidapp.presentation.ui.theme.cornerRadius
+import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
+import com.codeplace.postsandroidapp.presentation.ui.theme.CornerRadiusSize
 import com.example.compose.AppTheme
 
 @Composable
@@ -31,17 +30,17 @@ fun CommentCard(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainer,
         ),
-        shape = RoundedCornerShape(cornerRadius.small)
+        shape = RoundedCornerShape(CornerRadiusSize.small)
     ) {
         Column(
             modifier = modifier
-                .padding(all = Spacing.large),
-            verticalArrangement = Arrangement.spacedBy(Spacing.extraSmall)
+                .padding(all = SpacingSize.large),
+            verticalArrangement = Arrangement.spacedBy(SpacingSize.extraSmall)
         ) {
             Column(
                 modifier = modifier
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(Spacing.nano)
+                verticalArrangement = Arrangement.spacedBy(SpacingSize.nano)
             ) {
                 Text(
                     text = name,

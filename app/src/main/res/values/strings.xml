@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Posts Android App</string>
-    <string name="comments_title">Comments</string>
-    <string name="comments_body">comments</string>
+    <string name="title_comments">Comments</string>
+    <string name="card_body_comments">comments</string>
+    <string name="top_bar_title_favorites">Favorites</string>
+    <string name="top_bar_title_settings">Settings</string>
+
 
 </resources>

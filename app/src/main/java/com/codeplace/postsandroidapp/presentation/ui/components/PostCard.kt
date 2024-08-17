@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
@@ -20,7 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.codeplace.postsandroidapp.R
 import com.codeplace.postsandroidapp.domain.models.Post
-import com.codeplace.postsandroidapp.presentation.ui.theme.Spacing
+import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 import com.example.compose.AppTheme
 
 @Composable
@@ -47,14 +46,14 @@ fun PostCard(
             modifier = modifier
                 .fillMaxWidth()
                 .padding(
-                    start = Spacing.medium,
-                    end = Spacing.medium,
-                    top = Spacing.large,
-                    bottom = Spacing.large
-                ), verticalArrangement = Arrangement.spacedBy(Spacing.medium)
+                    start = SpacingSize.medium,
+                    end = SpacingSize.medium,
+                    top = SpacingSize.large,
+                    bottom = SpacingSize.large
+                ), verticalArrangement = Arrangement.spacedBy(SpacingSize.medium)
         ) {
             Column(
-                verticalArrangement = Arrangement.spacedBy(Spacing.mini)
+                verticalArrangement = Arrangement.spacedBy(SpacingSize.mini)
             ) {
                 Text(
                     text = post.title.replaceFirstChar {
@@ -79,15 +78,15 @@ fun PostCard(
                     horizontalAlignment = Alignment.End
                 )
                 {
-                    Row(modifier = modifier.padding(end = Spacing.small)) {
+                    Row(modifier = modifier.padding(end = SpacingSize.small)) {
                         Text(
                             text = containCommentCount.toString(),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary
                         )
-                        Spacer(Modifier.padding(end = Spacing.nano))
+                        Spacer(Modifier.padding(end = SpacingSize.nano))
                         Text(
-                            text = stringResource(id = R.string.comments_body),
+                            text = stringResource(id = R.string.card_body_comments),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.primary
                         )

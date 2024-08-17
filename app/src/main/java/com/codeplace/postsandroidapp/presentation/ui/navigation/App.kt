@@ -1,7 +1,10 @@
 package com.codeplace.postsandroidapp.presentation.ui.navigation
 
+
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarItem
@@ -13,6 +16,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -24,9 +29,11 @@ import com.codeplace.postsandroidapp.presentation.ui.navigation.utils.ScreenRout
 import com.codeplace.postsandroidapp.presentation.ui.screens.comments.CommentsScreenRoot
 import com.codeplace.postsandroidapp.presentation.ui.screens.favorites.FavoritesScreenRoot
 import com.codeplace.postsandroidapp.presentation.ui.screens.home.HomeScreenRoot
-import com.codeplace.postsandroidapp.presentation.ui.screens.profile.ProfileScreenRoot
+import com.codeplace.postsandroidapp.presentation.ui.screens.search.SearchScreenRoot
+import com.codeplace.postsandroidapp.presentation.ui.screens.settings.SettingsScreenRoot
 import com.example.compose.AppTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun App() {
     AppTheme {
@@ -43,66 +50,89 @@ fun App() {
             }
 
             Scaffold(
+                contentWindowInsets = WindowInsets(0.dp),
                 bottomBar = {
-                    BottomAppBar {
+                    BottomAppBar(
+                        containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
+                        contentColor = MaterialTheme.colorScheme.secondaryContainer
+                    ) {
                         BottomNavigation.entries
                             .forEachIndexed { index, bottomNavigationItem ->
 
                                 val isSelected by remember(currentRoute) {
                                     derivedStateOf { currentRouteTrimmed == bottomNavigationItem.route::class.qualifiedName }
                                 }
-
                                 NavigationBarItem(
+
                                     selected = isSelected,
-                                    label = { Text(bottomNavigationItem.label) },
+                                    label = {
+                                        Text(
+                                            text = bottomNavigationItem.label,
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = if (isSelected) MaterialTheme.colorScheme.onSurface else MaterialTheme.colorScheme.onSurfaceVariant,
+                                            fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium
+
+                                        )
+                                    },
                                     icon = {
                                         Icon(
-                                            imageVector = bottomNavigationItem.icon,
-                                            contentDescription = bottomNavigationItem.label
+                                            imageVector = if (isSelected) bottomNavigationItem.iconFilled else bottomNavigationItem.iconOutlined,
+                                            contentDescription = bottomNavigationItem.label,
+                                            tint = if (isSelected) MaterialTheme.colorScheme.onSecondaryContainer else MaterialTheme.colorScheme.onSurfaceVariant
                                         )
                                     },
                                     onClick = {
                                         navController.navigate(bottomNavigationItem.route)
                                     }
                                 )
+                            }
+
                     }
-                }}){
-                paddingValues ->
+                }) { innerPadding ->
+                    NavHost(
+                        navController = navController,
+                        startDestination = ScreenRoutes.HomeGraph,
+                        modifier = Modifier.padding(innerPadding)
+                    ) {
+                        navigation<ScreenRoutes.HomeGraph>(
+                            startDestination = ScreenRoutes.Home
+                        ) {
+                            composable<ScreenRoutes.Home> {
 
-                NavHost(navController = navController, startDestination = ScreenRoutes.HomeGraph, Modifier.padding(paddingValues)){
-                    navigation<ScreenRoutes.HomeGraph>(
-                        startDestination = ScreenRoutes.Home
-                    ){
-                        composable<ScreenRoutes.Home> {
-                            HomeScreenRoot(
-                                onCardClick = { id ->
-                                    navController.navigate(ScreenRoutes.Comments(id))
-                                }
-                            )
+                                HomeScreenRoot(
+                                    onCardClick = { id ->
+                                        navController.navigate(ScreenRoutes.Comments(id))
+                                    }
+                                )
+                            }
+                            composable<ScreenRoutes.Comments> { backStackEntry ->
+                                val commentsRoute: ScreenRoutes.Comments = backStackEntry.toRoute()
+                                CommentsScreenRoot(
+                                    id = commentsRoute.id
+                                )
+                            }
+
+                            composable<ScreenRoutes.Search> {
+                                SearchScreenRoot()
+                            }
+
+                            composable<ScreenRoutes.Favorites> {
+
+                                FavoritesScreenRoot()
+                            }
+
+                            composable<ScreenRoutes.Settings> {
+                                SettingsScreenRoot()
+
+                            }
+
                         }
-                        composable<ScreenRoutes.Comments> { backStackEntry ->
-                            val commentsRoute: ScreenRoutes.Comments = backStackEntry.toRoute()
-                            CommentsScreenRoot(
-                                id = commentsRoute.id
-                            )
-                        }
-
-                        composable<ScreenRoutes.Favorites> {
-                            FavoritesScreenRoot()
-                        }
-
-                        composable<ScreenRoutes.Profile> {
-                            ProfileScreenRoot()
-
-                        }
-
-
                     }
                 }
+
             }
 
 
         }
     }
 
-}

@@ -1,4 +1,4 @@
-package com.codeplace.postsandroidapp.presentation.ui.screens.profile
+package com.codeplace.postsandroidapp.presentation.ui.screens.settings
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,19 +10,19 @@ import androidx.compose.ui.Modifier
 
 
 @Composable
-fun ProfileScreenRoot(){
-    ProfileScreen()
+fun SettingsScreenRoot(){
+    SettingsScreen()
 }
 
 @Composable
-fun ProfileScreen(modifier: Modifier = Modifier) {
+fun SettingsScreen(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Profile ScreenRoutes")
+        Text("Settings Screen")
     }
 
 }

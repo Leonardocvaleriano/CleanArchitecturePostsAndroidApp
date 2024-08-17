@@ -25,7 +25,7 @@ import com.codeplace.postsandroidapp.domain.models.Post
 import com.codeplace.postsandroidapp.presentation.ui.components.CommentCard
 import com.codeplace.postsandroidapp.presentation.ui.components.PostCard
 import com.codeplace.postsandroidapp.presentation.ui.screens.ErrorMessageScreen
-import com.codeplace.postsandroidapp.presentation.ui.theme.Spacing
+import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 import com.example.compose.AppTheme
 
 
@@ -67,22 +67,22 @@ fun CommentsScreen(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = Spacing.extraLarge, bottom = Spacing.extraLarge)
+            .padding(top = SpacingSize.huge, bottom = SpacingSize.huge)
     ) {
         item {
             PostCard(
                 post = post,
                 onCardClick = {}
             )
-            Spacer(modifier = modifier.height(Spacing.small))
+            Spacer(modifier = modifier.height(SpacingSize.small))
             Box(
                 modifier = modifier
                     .fillMaxSize()
                     .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
             ) {
                 Text(
-                    modifier = modifier .padding(all = Spacing.large),
-                    text = stringResource(id = R.string.comments_title),
+                    modifier = modifier .padding(all = SpacingSize.large),
+                    text = stringResource(id = R.string.title_comments),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -95,7 +95,7 @@ fun CommentsScreen(
                 modifier = modifier
                     .fillMaxSize()
                     .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
-                    .padding(bottom = Spacing.medium, start = 16.dp, end = 16.dp)
+                    .padding(bottom = SpacingSize.medium, start = 16.dp, end = 16.dp)
                 ,
             ) {
                 CommentCard(
