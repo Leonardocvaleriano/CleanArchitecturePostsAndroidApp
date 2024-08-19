@@ -11,11 +11,18 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun SettingsScreenRoot(){
+
+//    Scaffold(topBar = TopAppBarSmallBackAndTitle()) {
+//
+
     SettingsScreen()
-}
+    }
+
+
 
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier) {
+
 
     Column(
         modifier = modifier.fillMaxSize(),

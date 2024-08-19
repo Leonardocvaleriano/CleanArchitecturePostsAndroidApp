@@ -2,15 +2,25 @@ package com.codeplace.postsandroidapp.presentation.ui.screens.comments
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -29,6 +39,7 @@ import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 import com.example.compose.AppTheme
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommentsScreenRoot(
     id: Int,
@@ -39,21 +50,52 @@ fun CommentsScreenRoot(
         viewModel.getCommentsAndPost(id)
     }
 
-    if (viewModel.loading) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-
-        ) {
-            CircularProgressIndicator()
+    Scaffold(
+        contentWindowInsets = WindowInsets(0.dp),
+        topBar = {
+          TopAppBar(
+              title = {
+                  Text(
+                      style = MaterialTheme.typography.titleMedium,
+                      text = stringResource(id = R.string.title_comments,
+                      ))
+              },
+              navigationIcon = {
+                  IconButton(onClick = { /*TODO*/ }) {
+                      Icon(
+                          imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                          contentDescription = "Back Icon",
+                          tint = MaterialTheme.colorScheme.onSurfaceVariant
+                      )
+                  }
+              }
+          )
         }
-    } else if (viewModel.error != null) {
-        ErrorMessageScreen(errorMessage = viewModel.error!!.name)
-    } else {
-        CommentsScreen(
-            post = viewModel.post!!,
-            comments = viewModel.comments
-        )
+    ) { innerPadding ->
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            if (viewModel.loading) {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else if (viewModel.error != null) {
+                ErrorMessageScreen(errorMessage = viewModel.error!!.name)
+            } else {
+                CommentsScreen(
+                    post = viewModel.post!!,
+                    comments = viewModel.comments
+                )
+            }
+
+        }
+
     }
 
 }
@@ -65,48 +107,48 @@ fun CommentsScreen(
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
+        contentPadding = PaddingValues(top = SpacingSize.small, bottom = SpacingSize.small),
         modifier = modifier
             .fillMaxSize()
-            .padding(top = SpacingSize.huge, bottom = SpacingSize.huge)
+
     ) {
-        item {
-            PostCard(
-                post = post,
-                onCardClick = {}
-            )
-            Spacer(modifier = modifier.height(SpacingSize.small))
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
-            ) {
-                Text(
-                    modifier = modifier .padding(all = SpacingSize.large),
-                    text = stringResource(id = R.string.title_comments),
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+            item {
+                PostCard(
+                    post = post,
+                    onCardClick = {}
                 )
+                Spacer(modifier = modifier.height(SpacingSize.small))
+                Box(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
+                ) {
+                    Text(
+                        modifier = modifier.padding(all = SpacingSize.large),
+                        text = stringResource(id = R.string.title_comments),
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                }
 
             }
+            items(comments) {
+                Box(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
+                        .padding(bottom = SpacingSize.medium, start = 16.dp, end = 16.dp),
+                ) {
+                    CommentCard(
+                        name = it.name,
+                        email = it.email,
+                        body = it.body
+                    )
+                }
 
-        }
-        items(comments) {
-            Box(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(color = MaterialTheme.colorScheme.surfaceContainerLowest)
-                    .padding(bottom = SpacingSize.medium, start = 16.dp, end = 16.dp)
-                ,
-            ) {
-                CommentCard(
-                    name = it.name,
-                    email = it.email,
-                    body = it.body
-                )
+
             }
-
-
-        }
     }
 
 }

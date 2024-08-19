@@ -1,84 +1,99 @@
 package com.codeplace.postsandroidapp.presentation.ui.components
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import com.codeplace.postsandroidapp.R
 import com.codeplace.postsandroidapp.presentation.ui.theme.BorderSize
 import com.codeplace.postsandroidapp.presentation.ui.theme.IconSize
-import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopAppBarSmallProfile(
     modifier: Modifier = Modifier,
-    @StringRes title: Int? = null,
-    profileImage: Int,
-    secondTrailingIcon:ImageVector,
-    thirdTrailingIcon:ImageVector,
-
+    title: String? = "",
+    onProfileClick: (Int) -> Unit = {} ,
+    onSearchClick: () -> Unit = {},
+    onNotificationsClick: () -> Unit = {},
 ) {
-
     TopAppBar(
-        modifier = modifier.padding(start = SpacingSize.large, end = SpacingSize.large),
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surfaceContainerLowest,
             titleContentColor = MaterialTheme.colorScheme.onSurface,
         ),
-        title = { Text("") },
-        navigationIcon = {
-            Image(
-                painter = painterResource(profileImage),
-                contentDescription = "Profile Photo",
-                contentScale = ContentScale.Crop,
-                modifier = modifier
-                    .size(IconSize.medium)
-                    .clip(CircleShape)
-                    .border(
-                        BorderSize.micro,
-                        MaterialTheme.colorScheme.primary,
-                        CircleShape
+        title = {
+                Text(
+                    modifier = modifier.fillMaxWidth(),
+                    text = title!!,
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center,
                     )
-            )
+
+        },
+        navigationIcon = {
+            IconButton(onClick = { onProfileClick(2) }
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.profile_photo),
+                    contentDescription = "Profile Photo",
+                    contentScale = ContentScale.Crop,
+                    modifier = modifier
+                        .size(IconSize.medium)
+                        .clip(CircleShape)
+                        .border(
+                            BorderSize.micro,
+                            MaterialTheme.colorScheme.primary,
+                            CircleShape
+                        )
+                )
+            }
+
         },
         actions = {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(SpacingSize.extraLarge)
-            ){
+            IconButton(onClick = onSearchClick) {
                 Icon(
-                    imageVector = secondTrailingIcon,
+                    imageVector = Icons.Filled.Search,
                     contentDescription = "Search Icon",
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
+            }
+            IconButton(onClick = onNotificationsClick) {
                 Icon(
-                    imageVector = thirdTrailingIcon,
+                    imageVector = Icons.Filled.Notifications,
                     contentDescription = "Notifications Icon",
                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-
         }
     )
+}
 
+
+@Preview
+@Composable
+
+fun TopAppBarSmallProfilePreview() {
+    TopAppBarSmallProfile(
+        title = "Favorites"
+    )
 }

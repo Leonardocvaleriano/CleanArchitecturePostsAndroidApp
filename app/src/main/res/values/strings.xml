@@ -4,6 +4,7 @@
     <string name="card_body_comments">comments</string>
     <string name="top_bar_title_favorites">Favorites</string>
     <string name="top_bar_title_settings">Settings</string>
+    <string name="top_bar_title_profile">Profile</string>
 
 
 </resources>
