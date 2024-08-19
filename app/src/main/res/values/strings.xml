@@ -5,6 +5,11 @@
     <string name="top_bar_title_favorites">Favorites</string>
     <string name="top_bar_title_settings">Settings</string>
     <string name="top_bar_title_profile">Profile</string>
+    <string name="settings_title">Settings</string>
+    <string name="night_mode_settings_item">Night mode </string>
+    <string name="share_settings_item">Share</string>
+    <string name="logout_settings_item">Logout</string>
+    <string name="light_mode_settings_item">Light mode</string>
 
 
 </resources>
