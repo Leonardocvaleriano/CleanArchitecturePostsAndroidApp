@@ -120,7 +120,10 @@ fun NavigationRoot() {
                             }
 
                             composable<ScreenRoutes.Favorites> {
-                                FavoritesScreenRoot()
+                                FavoritesScreenRoot(onProfileClick = {
+                                    id ->
+                                    navController.navigate(ScreenRoutes.Profile(id))
+                                })
                             }
 
                             composable<ScreenRoutes.Settings> {

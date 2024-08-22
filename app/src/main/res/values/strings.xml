@@ -10,6 +10,7 @@
     <string name="share_settings_item">Share</string>
     <string name="logout_settings_item">Logout</string>
     <string name="light_mode_settings_item">Light mode</string>
+    <string name="profile_content_description">Profile Image</string>
 
 
 </resources>
