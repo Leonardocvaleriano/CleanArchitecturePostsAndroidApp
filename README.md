@@ -4,25 +4,16 @@ Build an app with a clean code structure using the MVVM design pattern that cons
 
 Technologies
 -
-    Ktor Client 
+    Network interactions with Ktor Client 
     Jetpack Compose UI
+    Type safety in Navigation Compose
+    Hilt(DI)
+    M3 guidelines
+
 
 Structure
 -
-    Clean code
+    Clean code architecture
     MVVM
-    
-
-Tips
--
-Check Ktor Client engines compatibility for each platform.
-
-Sources
--
-Ktor Client:
-<br>
-https://ktor.io/docs/client-create-multiplatform-application.html#ktor-dependencies
-<br>
-https://www.youtube.com/watch?v=Z1WoLYF-b14
 
 
