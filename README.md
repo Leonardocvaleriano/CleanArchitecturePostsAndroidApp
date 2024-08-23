@@ -1,9 +1,9 @@
-##  Posts Android App Project
+#  Posts Android App Project
 
-# Introduction
+## Introduction
 Develop an app with a clean code structure, utilizing the MVVM design pattern. The app will interact with a Posts API using Ktor and store the data in a database using Room.
 
-# Technologies
+## Technologies
 * Ktor Client (Network interactions via HTTP requests)
 * Room (Data store)
 * Jetpack Compose UI
@@ -11,6 +11,6 @@ Develop an app with a clean code structure, utilizing the MVVM design pattern. T
 * Hilt(DI)
 * M3 guidelines
 
-# Structure
+## Structure
 * Clean code architecture
 * MVVM
