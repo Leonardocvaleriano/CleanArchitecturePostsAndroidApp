@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.codeplace.postsandroidapp.presentation.ui.screens.home.PostsViewModel
+import com.codeplace.postsandroidapp.presentation.ui.screens.explore.ExploreViewModel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -23,7 +23,7 @@ fun ErrorMessageScreen(
     errorMessage: String,
 ) {
 
-    val viewModel: PostsViewModel = viewModel()
+    val viewModel: ExploreViewModel = viewModel()
     val scope = rememberCoroutineScope()
     Column(modifier = Modifier
         .fillMaxSize()

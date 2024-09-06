@@ -1,4 +1,4 @@
-package com.codeplace.postsandroidapp.presentation.ui.screens.home
+package com.codeplace.postsandroidapp.presentation.ui.screens.explore
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,12 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.codeplace.postsandroidapp.R
 import com.codeplace.postsandroidapp.domain.models.Post
 import com.codeplace.postsandroidapp.presentation.ui.components.PostCard
-import com.codeplace.postsandroidapp.presentation.ui.components.TopAppBarSmallProfile
+import com.codeplace.postsandroidapp.presentation.ui.components.TopAppBarDefault
 import com.codeplace.postsandroidapp.presentation.ui.screens.ErrorMessageScreen
 import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 import com.example.compose.AppTheme
@@ -27,9 +29,10 @@ import com.example.compose.AppTheme
 
 @Composable
 fun HomeScreenRoot(
-    viewModel: PostsViewModel = hiltViewModel(),
+    viewModel: ExploreViewModel = hiltViewModel(),
     onCardClick: (postId: Int) -> Unit,
-    onProfileClick: (id: Int) -> Unit,
+    onSearchIconClick:  () -> Unit = {},
+    onSendIconClick: () -> Unit = {},
 ) {
 
     //Every time that compose make its recompose process, this load post will be called.
@@ -40,8 +43,10 @@ fun HomeScreenRoot(
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp),
         topBar = {
-            TopAppBarSmallProfile(
-            onProfileClick = onProfileClick
+            TopAppBarDefault(
+                title = stringResource(R.string.top_bar_title_posts),
+                onSearchIconClick = onSearchIconClick,
+                onSendIconClick = onSendIconClick
             )
         }
     ) { innerPadding ->

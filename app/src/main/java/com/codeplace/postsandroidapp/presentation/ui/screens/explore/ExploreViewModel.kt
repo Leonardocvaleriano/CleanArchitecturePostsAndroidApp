@@ -1,12 +1,10 @@
-package com.codeplace.postsandroidapp.presentation.ui.screens.home
+package com.codeplace.postsandroidapp.presentation.ui.screens.explore
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.codeplace.postsandroidapp.domain.models.Comments
 import com.codeplace.postsandroidapp.domain.utils.NetworkError
 import com.codeplace.postsandroidapp.domain.utils.onError
 import com.codeplace.postsandroidapp.domain.utils.onSuccess
@@ -18,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class PostsViewModel @Inject constructor(
+class ExploreViewModel @Inject constructor(
     private val getPostsUseCase: GetPostsUseCase,
     private val getCommentByIdUseCase: GetCommentByIdUseCase
 ):ViewModel() {
@@ -43,15 +41,18 @@ class PostsViewModel @Inject constructor(
                 posts = it
                 isloading = false
                 errorMessage = null
+
+                posts.forEach {
+                    getCommentByIdUseCase(it.id)
+                        .onSuccess {
+                        commentsCount = it.size
+                    }.onError {
+                        errorMessageCommentsCount = it
+                    }
+                }
             }. onError {
                 errorMessage = it
             }
-               posts.forEach {
-                   getCommentByIdUseCase(it.id).onSuccess {
-                       commentsCount = it.size
-                   }.onError {
-                       errorMessageCommentsCount = it
-                   }
-               }
+
     }
 }

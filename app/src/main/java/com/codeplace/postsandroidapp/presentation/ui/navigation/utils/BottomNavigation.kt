@@ -17,10 +17,10 @@ enum class BottomNavigation(
     val iconOutlined: ImageVector,
     val route: ScreenRoutes,
 ) {
-    HOME(
-        "Home",
-        iconFilled = Icons.Filled.Home,
-        iconOutlined = Icons.Outlined.Home,
+    EXPLORE(
+        label = "Explore",
+        iconFilled = Icons.Filled.Search,
+        iconOutlined = Icons.Outlined.Search,
         route = ScreenRoutes.Home
     ),
     FAVORITES(

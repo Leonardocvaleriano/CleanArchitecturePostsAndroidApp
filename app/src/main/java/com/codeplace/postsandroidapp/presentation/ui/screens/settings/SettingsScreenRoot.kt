@@ -1,6 +1,6 @@
 package com.codeplace.postsandroidapp.presentation.ui.screens.settings
 
-import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -8,18 +8,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ExitToApp
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.outlined.Share
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,93 +23,75 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.codeplace.postsandroidapp.R
-import com.codeplace.postsandroidapp.presentation.ui.components.TopAppBarSmallProfile
+import com.codeplace.postsandroidapp.presentation.ui.components.TopAppBarTrailingIcon
 import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 
 
 @Composable
-fun SettingsScreenRoot() {
+fun SettingsScreenRoot(
+    onThemeClick: () -> Unit = {},
+) {
 
-    Scaffold(topBar = {
-        TopAppBarSmallProfile (
-        )
-    }){
-        innerPadding ->
 
+    Scaffold(
+        topBar = {
+            TopAppBarTrailingIcon(
+                title = stringResource(R.string.top_bar_title_settings)
+            )
+        }
+
+    ) { innerPadding ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-        ){
-            SettingsScreen()
+        ) {
+            SettingsScreen(
+                onThemeClick = onThemeClick
+            )
         }
-
     }
 
-}
 
+}
 
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
-
-    Column(
+fun SettingsScreen(
+    modifier: Modifier = Modifier,
+    onThemeClick: () -> Unit
+) {
+    LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(
-                top = SpacingSize.massive,
-                bottom = SpacingSize.large,
-                start = SpacingSize.large,
-                end = SpacingSize.large
-            ),
-        verticalArrangement = Arrangement.spacedBy(SpacingSize.extraLarge)
-
+            .padding(horizontal = SpacingSize.medium)
     ) {
-        Text(
-            text = stringResource(R.string.settings_title),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-
-
-        Column(verticalArrangement = Arrangement.spacedBy(SpacingSize.small)) {
-            SettingsItemRow(
-                text = stringResource(R.string.light_mode_settings_item),
-                icon = Icons.Outlined.Settings,
-                containToggleButton = true,
-                contentDescription = "Theme Mode Icon",
-                onClick = {}
-            )
-            SettingsItemRow(
-                text = stringResource(R.string.share_settings_item),
-                icon = Icons.Outlined.Share,
-                containToggleButton = false,
-                contentDescription = "Share Icon",
-                onClick = {}
-            )
-            HorizontalDivider(
-                modifier = modifier.fillMaxWidth(),
-                color = MaterialTheme.colorScheme.outlineVariant
-            )
-            SettingsItemRow(
-                text = stringResource(R.string.logout_settings_item),
-                icon = Icons.AutoMirrored.Outlined.ExitToApp,
-                containToggleButton = false,
-                contentDescription = "Logout Icon",
-                onClick = {}
-            )
+        item {
+            Column(verticalArrangement = Arrangement.spacedBy(SpacingSize.large)) {
+                SettingsItemRow(
+                    text = stringResource(R.string.theme_settings_item),
+                    icon = Icons.Outlined.Settings,
+                    contentDescription = "Settings Icon",
+                    onItemClick = onThemeClick
+                )
+                SettingsItemRow(
+                    text = stringResource(R.string.share_settings_item),
+                    icon = Icons.Outlined.Share,
+                    contentDescription = "Share Icon"
+                )
+            }
         }
 
-    }
 
+    }
 }
+
 
 @Composable
 fun SettingsItemRow(
     modifier: Modifier = Modifier,
     text: String,
     icon: ImageVector,
-    containToggleButton: Boolean,
-    onClick: () -> Unit = {},
+    onItemClick:() -> Unit = {},
     contentDescription: String,
 ) {
     Row(
@@ -122,43 +99,24 @@ fun SettingsItemRow(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Row(
+            modifier.clickable {
+                onItemClick()
+            },
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(SpacingSize.extraSmall)
+            horizontalArrangement = Arrangement.spacedBy(SpacingSize.medium)
         ) {
-            IconButton(
-                onClick = onClick,
-                colors = IconButtonDefaults.iconButtonColors(
-                    contentColor = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            ) {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = contentDescription
-                )
-            }
-
+            Icon(
+                imageVector = icon,
+                contentDescription = contentDescription,
+                tint = MaterialTheme.colorScheme.onSurface
+            )
             Text(
                 text = text,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-        }
-        if (containToggleButton){
-            Switch(
-                checked = if (isSystemInDarkTheme()){
-                    true
-                } else {
-                    false
-                },
-                onCheckedChange = {},
-                colors = SwitchDefaults.colors(
-                    checkedThumbColor = MaterialTheme.colorScheme.onPrimary,
-                    checkedTrackColor = MaterialTheme.colorScheme.primary,
-                )
-            )
-        }
 
-
+        }
 
 
     }
@@ -167,6 +125,7 @@ fun SettingsItemRow(
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreenPreview() {
-    SettingsScreen()
-
+    SettingsScreen(
+        onThemeClick = {}
+    )
 }

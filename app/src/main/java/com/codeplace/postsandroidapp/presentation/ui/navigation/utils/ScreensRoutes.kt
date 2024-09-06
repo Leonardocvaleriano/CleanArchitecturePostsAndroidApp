@@ -15,9 +15,6 @@ sealed class ScreenRoutes() {
     data class Comments(val id: Int) : ScreenRoutes()
 
     @Serializable
-    data class Profile(val id: Int) : ScreenRoutes()
-
-    @Serializable
     data object Search : ScreenRoutes()
 
     @Serializable
@@ -25,6 +22,9 @@ sealed class ScreenRoutes() {
 
     @Serializable
     data object Settings : ScreenRoutes()
+
+    @Serializable
+    data object Theme: ScreenRoutes()
 
 
 }

@@ -27,24 +27,28 @@ import androidx.navigation.toRoute
 import com.codeplace.postsandroidapp.presentation.ui.navigation.utils.BottomNavigation
 import com.codeplace.postsandroidapp.presentation.ui.navigation.utils.ScreenRoutes
 import com.codeplace.postsandroidapp.presentation.ui.screens.comments.CommentsScreenRoot
+import com.codeplace.postsandroidapp.presentation.ui.screens.explore.HomeScreenRoot
 import com.codeplace.postsandroidapp.presentation.ui.screens.favorites.FavoritesScreenRoot
-import com.codeplace.postsandroidapp.presentation.ui.screens.home.HomeScreenRoot
-import com.codeplace.postsandroidapp.presentation.ui.screens.profile.ProfileScreenRoot
 import com.codeplace.postsandroidapp.presentation.ui.screens.search.SearchScreenRoot
 import com.codeplace.postsandroidapp.presentation.ui.screens.settings.SettingsScreenRoot
+import com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme.ThemeScreenRoot
 import com.example.compose.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationRoot() {
-    AppTheme {
+fun NavigationRoot(
+
+) {
+    AppTheme(
+
+    ) {
         Surface(color = MaterialTheme.colorScheme.surface) {
 
             val navController = rememberNavController()
 
             val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
-                ?: BottomNavigation.HOME.route::class.qualifiedName.orEmpty()
+                ?: BottomNavigation.EXPLORE.route::class.qualifiedName.orEmpty()
             val currentRouteTrimmed by remember(currentRoute) {
                 derivedStateOf { currentRoute.substringBefore("?") }
             }
@@ -98,11 +102,7 @@ fun NavigationRoot() {
                             startDestination = ScreenRoutes.Home
                         ) {
                             composable<ScreenRoutes.Home> {
-
                                 HomeScreenRoot(
-                                    onProfileClick = { id ->
-                                        navController.navigate(ScreenRoutes.Profile(id))
-                                    },
                                     onCardClick = { id ->
                                         navController.navigate(ScreenRoutes.Comments(id))
                                     }
@@ -120,20 +120,18 @@ fun NavigationRoot() {
                             }
 
                             composable<ScreenRoutes.Favorites> {
-                                FavoritesScreenRoot(onProfileClick = {
-                                    id ->
-                                    navController.navigate(ScreenRoutes.Profile(id))
-                                })
+                                FavoritesScreenRoot()
                             }
 
                             composable<ScreenRoutes.Settings> {
-                                SettingsScreenRoot()
-                            }
-                            composable<ScreenRoutes.Profile> { backstackEntry ->
-                                val profileRoute: ScreenRoutes.Profile = backstackEntry.toRoute()
-                                ProfileScreenRoot(
-                                    id  = profileRoute.id
+                                SettingsScreenRoot(
+                                    onThemeClick = {
+                                        navController.navigate(ScreenRoutes.Theme)
+                                    }
                                 )
+                            }
+                            composable<ScreenRoutes.Theme> {
+                                ThemeScreenRoot()
                             }
 
                         }

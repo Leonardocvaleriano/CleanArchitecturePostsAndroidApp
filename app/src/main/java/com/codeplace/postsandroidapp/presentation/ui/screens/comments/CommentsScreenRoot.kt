@@ -34,6 +34,7 @@ import com.codeplace.postsandroidapp.domain.models.Comments
 import com.codeplace.postsandroidapp.domain.models.Post
 import com.codeplace.postsandroidapp.presentation.ui.components.CommentCard
 import com.codeplace.postsandroidapp.presentation.ui.components.PostCard
+import com.codeplace.postsandroidapp.presentation.ui.components.TopAppBarBackArrow
 import com.codeplace.postsandroidapp.presentation.ui.screens.ErrorMessageScreen
 import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 import com.example.compose.AppTheme
@@ -53,23 +54,9 @@ fun CommentsScreenRoot(
     Scaffold(
         contentWindowInsets = WindowInsets(0.dp),
         topBar = {
-          TopAppBar(
-              title = {
-                  Text(
-                      style = MaterialTheme.typography.titleMedium,
-                      text = stringResource(id = R.string.title_comments,
-                      ))
-              },
-              navigationIcon = {
-                  IconButton(onClick = { /*TODO*/ }) {
-                      Icon(
-                          imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                          contentDescription = "Back Icon",
-                          tint = MaterialTheme.colorScheme.onSurfaceVariant
-                      )
-                  }
-              }
-          )
+            TopAppBarBackArrow(
+                title = stringResource(R.string.title_comments)
+            )
         }
     ) { innerPadding ->
 
