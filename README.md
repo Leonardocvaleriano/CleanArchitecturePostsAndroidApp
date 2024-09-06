@@ -12,7 +12,7 @@ Develop an app with a clean code structure, utilizing the MVVM design pattern. T
 * Jetpack Compose
 * Type Safe Navigation Compose
 
-## Design patterns
+## Design Patterns
 
 * Clean Code
 * MVVM
