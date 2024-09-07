@@ -16,6 +16,9 @@
     <string name="settings_menu_item_night_mode">Night mode</string>
     <string name="edit_icon_text">Edit</string>
     <string name="top_bar_title_theme">Theme</string>
-
+    <string name="theme_list_item_on">On</string>
+    <string name="theme_list_item_off">Off</string>
+    <string name="theme_list_item_System">System</string>
+    <string name="theme_list_item_System_support">The app theme will automatically match the theme set on your device.</string>
 
 </resources>

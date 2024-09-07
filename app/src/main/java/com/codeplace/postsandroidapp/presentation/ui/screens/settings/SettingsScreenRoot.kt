@@ -41,11 +41,9 @@ fun SettingsScreenRoot(
         }
 
     ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
+
+        Column(modifier = Modifier.padding(innerPadding)) {
+
             SettingsScreen(
                 onThemeClick = onThemeClick
             )
@@ -58,15 +56,16 @@ fun SettingsScreenRoot(
 @Composable
 fun SettingsScreen(
     modifier: Modifier = Modifier,
-    onThemeClick: () -> Unit
+    onThemeClick: () -> Unit,
 ) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = SpacingSize.medium)
+            .padding(
+                horizontal = SpacingSize.medium,
+            ),
     ) {
         item {
-            Column(verticalArrangement = Arrangement.spacedBy(SpacingSize.large)) {
                 SettingsItemRow(
                     text = stringResource(R.string.theme_settings_item),
                     icon = Icons.Outlined.Settings,
@@ -83,7 +82,6 @@ fun SettingsScreen(
 
 
     }
-}
 
 
 @Composable
@@ -91,20 +89,17 @@ fun SettingsItemRow(
     modifier: Modifier = Modifier,
     text: String,
     icon: ImageVector,
-    onItemClick:() -> Unit = {},
+    onItemClick: () -> Unit = {},
     contentDescription: String,
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onItemClick() }
+            .padding(vertical = SpacingSize.small)
+        ,
+        horizontalArrangement = Arrangement.spacedBy(SpacingSize.extraSmall)
     ) {
-        Row(
-            modifier.clickable {
-                onItemClick()
-            },
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(SpacingSize.medium)
-        ) {
             Icon(
                 imageVector = icon,
                 contentDescription = contentDescription,
@@ -115,9 +110,6 @@ fun SettingsItemRow(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurface,
             )
-
-        }
-
 
     }
 }

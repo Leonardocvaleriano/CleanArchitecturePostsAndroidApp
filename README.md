@@ -7,7 +7,7 @@ Develop an app with a clean code structure, utilizing the MVVM design pattern. T
 
 * Network Requests (Ktor)
 * Local Persistence Data (Room)
-* Saving simple data (SharedPreferences)
+* Saving Simple Data (Jetpack DataStore - Preferences DataStore)
 * M3 Design System
 * Jetpack Compose
 * Type Safe Navigation Compose
