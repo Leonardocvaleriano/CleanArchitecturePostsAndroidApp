@@ -1,27 +1,25 @@
 package com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.RadioButton
-import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import com.codeplace.postsandroidapp.R
+import com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme.components.RadioGroup
 import com.codeplace.postsandroidapp.presentation.ui.components.TopAppBarBackArrow
+import com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme.utils.AppTheme
+import com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme.utils.RadioButtonItem
 import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize
 
 @Composable
-fun ThemeScreenRoot() {
+fun ThemeScreenRoot(
+    modifier: Modifier = Modifier,
+    selectedTheme: AppTheme,
+    onItemSelected: (AppTheme) -> Unit,
+) {
 
     Scaffold(
         topBar = {
@@ -31,87 +29,59 @@ fun ThemeScreenRoot() {
 
         Column(modifier = Modifier.padding(innerPadding)) {
 
-            ThemeScreen()
+            ThemeScreen(
+                selectedTheme = selectedTheme,
+                onItemSelected = onItemSelected)
         }
 
     }
 }
 
-@Composable
-fun ThemeScreen() {
-    Column(modifier = Modifier.padding(horizontal = SpacingSize.large)) {
-        ThemeItemRow(
-            text = stringResource(R.string.theme_list_item_on)
-        )
-        ThemeItemRow(
-            text = stringResource(R.string.theme_list_item_off)
-        )
-        ThemeItemRow(
-            text = stringResource(R.string.theme_list_item_System),
-            supportText = stringResource(R.string.theme_list_item_System_support)
-        )
-    }
-
-}
-
 
 @Composable
-fun ThemeItemRow(
-    text: String,
-    supportText: String? = null,
+fun ThemeScreen(
+    selectedTheme: AppTheme,
+    onItemSelected: (AppTheme) -> Unit,
 ) {
 
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
 
-        if(supportText != null){
-            Column(verticalArrangement = Arrangement.spacedBy(SpacingSize.nano)) {
-                Text(
-                    modifier = Modifier.fillMaxWidth(0.9f),
-                    text = text,
-                    style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                )
-                Text(
-                    modifier = Modifier.fillMaxWidth(0.9f),
-                    text = supportText,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = FontWeight.Normal
-                )
+    val themeItems = listOf(
+        RadioButtonItem(
+            id = AppTheme.LIGHT_MODE.ordinal,
+            title = stringResource(R.string.theme_list_item_light)
+        ),
+        RadioButtonItem(
+            id = AppTheme.DARK_MODE.ordinal,
+            title = stringResource(R.string.theme_list_item_dark)
+        ),
+        RadioButtonItem(
+            id = AppTheme.SYSTEM_MODE.ordinal,
+            title = stringResource(R.string.theme_list_item_System),
+            supportText = stringResource(R.string.theme_list_item_System_support)
+        )
+    )
+
+
+    Column(modifier = Modifier.padding(horizontal = SpacingSize.large)) {
+
+        RadioGroup(
+            items = themeItems,
+            selected = selectedTheme.ordinal,
+            onItemSelect = {
+                onItemSelected(AppTheme.fromOrdinal(it))
             }
-        } else {
-            Text(
-                modifier = Modifier.fillMaxWidth(0.9f),
-                text = text,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSurface,
-            )
-
-        }
+        )
 
 
-        RadioButton(
-            colors = RadioButtonColors(
-                selectedColor = MaterialTheme.colorScheme.primary,
-                unselectedColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                disabledSelectedColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.38f),
-                disabledUnselectedColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
-            ),
-            enabled = false, selected = false, onClick = {})
     }
 
 }
-
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 
 fun ThemeScreenPreview() {
-    ThemeScreen()
+   // ThemeScreen()
 }
 
 

@@ -1,4 +1,4 @@
-package com.codeplace.postsandroidapp.presentation.ui.components
+package com.codeplace.postsandroidapp.presentation.ui.screens.explore.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

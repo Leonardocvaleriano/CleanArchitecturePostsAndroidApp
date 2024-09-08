@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.codeplace.postsandroidapp.R
 import com.codeplace.postsandroidapp.domain.models.Post
-import com.codeplace.postsandroidapp.presentation.ui.components.PostCard
+import com.codeplace.postsandroidapp.presentation.ui.screens.explore.components.PostCard
 import com.codeplace.postsandroidapp.presentation.ui.components.TopAppBarDefault
 import com.codeplace.postsandroidapp.presentation.ui.screens.ErrorMessageScreen
 import com.codeplace.postsandroidapp.presentation.ui.theme.SpacingSize

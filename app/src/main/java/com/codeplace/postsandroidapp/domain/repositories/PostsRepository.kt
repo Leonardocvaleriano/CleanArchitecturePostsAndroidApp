@@ -4,6 +4,7 @@ import com.codeplace.postsandroidapp.domain.models.Comments
 import com.codeplace.postsandroidapp.domain.utils.NetworkError
 import com.codeplace.postsandroidapp.domain.utils.Result
 import com.codeplace.postsandroidapp.domain.models.Post
+import kotlinx.coroutines.flow.StateFlow
 
 interface PostsRepository {
 

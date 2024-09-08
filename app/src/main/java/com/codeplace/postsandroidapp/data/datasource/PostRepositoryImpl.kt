@@ -5,11 +5,10 @@ import com.codeplace.postsandroidapp.data.network.models.CommentsDto
 import com.codeplace.postsandroidapp.data.network.models.PostDto
 import com.codeplace.postsandroidapp.data.network.util.HttpRoutes
 import com.codeplace.postsandroidapp.domain.models.Comments
-import com.codeplace.postsandroidapp.domain.utils.NetworkError
-import com.codeplace.postsandroidapp.domain.utils.Result
-
 import com.codeplace.postsandroidapp.domain.models.Post
 import com.codeplace.postsandroidapp.domain.repositories.PostsRepository
+import com.codeplace.postsandroidapp.domain.utils.NetworkError
+import com.codeplace.postsandroidapp.domain.utils.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -102,4 +101,6 @@ class PostRepositoryImpl @Inject constructor(
             }
         }
     }
+
+
 }

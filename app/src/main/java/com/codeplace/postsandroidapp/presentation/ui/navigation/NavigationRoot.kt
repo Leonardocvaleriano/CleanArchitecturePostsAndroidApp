@@ -1,6 +1,7 @@
 package com.codeplace.postsandroidapp.presentation.ui.navigation
 
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.BottomAppBar
@@ -18,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -32,14 +34,27 @@ import com.codeplace.postsandroidapp.presentation.ui.screens.favorites.Favorites
 import com.codeplace.postsandroidapp.presentation.ui.screens.search.SearchScreenRoot
 import com.codeplace.postsandroidapp.presentation.ui.screens.settings.SettingsScreenRoot
 import com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme.ThemeScreenRoot
+import com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme.ThemeViewModel
+import com.codeplace.postsandroidapp.presentation.ui.screens.settings.theme.utils.AppTheme
 import com.example.compose.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationRoot(
+    viewModel: ThemeViewModel = hiltViewModel(),
 
-) {
+    ) {
+
+    val currentTheme = viewModel.currentTheme
+
+    val useDarkColors = when (currentTheme) {
+        AppTheme.DARK_MODE -> true
+        AppTheme.LIGHT_MODE -> false
+        AppTheme.SYSTEM_MODE -> isSystemInDarkTheme()
+    }
+
     AppTheme(
+        darkTheme = useDarkColors
 
     ) {
         Surface(color = MaterialTheme.colorScheme.surface) {
@@ -93,54 +108,62 @@ fun NavigationRoot(
 
                     }
                 }) { innerPadding ->
-                    NavHost(
-                        navController = navController,
-                        startDestination = ScreenRoutes.HomeGraph,
-                        modifier = Modifier.padding(innerPadding)
+                NavHost(
+                    navController = navController,
+                    startDestination = ScreenRoutes.HomeGraph,
+                    modifier = Modifier.padding(innerPadding)
+                ) {
+                    navigation<ScreenRoutes.HomeGraph>(
+                        startDestination = ScreenRoutes.Home
                     ) {
-                        navigation<ScreenRoutes.HomeGraph>(
-                            startDestination = ScreenRoutes.Home
-                        ) {
-                            composable<ScreenRoutes.Home> {
-                                HomeScreenRoot(
-                                    onCardClick = { id ->
-                                        navController.navigate(ScreenRoutes.Comments(id))
-                                    }
-                                )
-                            }
-                            composable<ScreenRoutes.Comments> { backStackEntry ->
-                                val commentsRoute: ScreenRoutes.Comments = backStackEntry.toRoute()
-                                CommentsScreenRoot(
-                                    id = commentsRoute.id
-                                )
-                            }
-
-                            composable<ScreenRoutes.Search> {
-                                SearchScreenRoot()
-                            }
-
-                            composable<ScreenRoutes.Favorites> {
-                                FavoritesScreenRoot()
-                            }
-
-                            composable<ScreenRoutes.Settings> {
-                                SettingsScreenRoot(
-                                    onThemeClick = {
-                                        navController.navigate(ScreenRoutes.Theme)
-                                    }
-                                )
-                            }
-                            composable<ScreenRoutes.Theme> {
-                                ThemeScreenRoot()
-                            }
-
+                        composable<ScreenRoutes.Home> {
+                            HomeScreenRoot(
+                                onCardClick = { id ->
+                                    navController.navigate(ScreenRoutes.Comments(id))
+                                }
+                            )
                         }
+                        composable<ScreenRoutes.Comments> { backStackEntry ->
+                            val commentsRoute: ScreenRoutes.Comments = backStackEntry.toRoute()
+                            CommentsScreenRoot(
+                                id = commentsRoute.id
+                            )
+                        }
+
+                        composable<ScreenRoutes.Search> {
+                            SearchScreenRoot()
+                        }
+
+                        composable<ScreenRoutes.Favorites> {
+                            FavoritesScreenRoot()
+                        }
+
+                        composable<ScreenRoutes.Settings> {
+                            SettingsScreenRoot(
+                                onThemeClick = {
+                                    navController.navigate(ScreenRoutes.Theme)
+                                }
+                            )
+                        }
+                        composable<ScreenRoutes.Theme> {
+                            ThemeScreenRoot(
+                                selectedTheme = currentTheme,
+                                onItemSelected = {
+                                    viewModel.currentTheme = it
+                                    //navController.popBackStack()
+                                }
+
+
+                            )
+                        }
+
                     }
                 }
-
             }
 
-
         }
+
+
     }
+}
 
