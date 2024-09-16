@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
     private fun ComponentActivity.setContentCompose() {
         enableEdgeToEdge()
         setContent {
-
            NavigationRoot()
         }
     }

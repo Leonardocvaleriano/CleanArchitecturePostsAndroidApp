@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.codeplace.postsandroidapp.R
-import com.codeplace.postsandroidapp.core.presentation.ErrorMessageText
+import com.codeplace.postsandroidapp.core.presentation.screens.ErrorMessageText
 import com.codeplace.postsandroidapp.feature_explore.presentation.posts.components.PostCard
 import com.codeplace.postsandroidapp.core.presentation.theme.SpacingSize
 import com.codeplace.postsandroidapp.core.presentation.components.TopAppBarDefault
