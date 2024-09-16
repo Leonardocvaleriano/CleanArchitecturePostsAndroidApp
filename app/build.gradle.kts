@@ -92,7 +92,11 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
 
     // JetPack DataStore - Preferences DataStore
+    implementation (libs.androidx.datastore.preferences)
     implementation (libs.androidx.datastore.core)
+
+
+
 
 
 

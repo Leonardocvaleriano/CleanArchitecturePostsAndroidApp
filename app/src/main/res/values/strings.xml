@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Posts Android App</string>
     <string name="title_comments">Comments</string>
     <string name="card_body_comments">comments</string>
@@ -20,5 +20,13 @@
     <string name="theme_list_item_dark">Dark</string>
     <string name="theme_list_item_System">System</string>
     <string name="theme_list_item_System_support">The app theme will automatically match the theme set on your device.</string>
+    <string name="title_oops_something_went_wrong">Oops, something went wrong!</string>
+    <string name="button_retry">Retry</string>
+    <string name="bottom_navigation_label_explore">Explore</string>
+    <string name="bottom_navigation_label_favorites">Favorites</string>
+    <string name="bottom_navigation_label_settings">Settings</string>
+    <string name="top_bar_title_explore">Explore</string>
+    <string name="body_text_no_comments">No comments registered yet!</string>
+    <string name="body_an_unexpected_error_has_occurred">An unexpected error has occurred</string>
 
 </resources>
